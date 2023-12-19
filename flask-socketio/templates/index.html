@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+<body>
+    <h1>WebSocket Example</h1>
+    <p id="btc-value">BTC Value: Loading...</p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('update_currencies', function(data) {
+            var btcValueElement = document.getElementById('btc-value');
+
+            // 'BTC' is the key for BTC value in the data
+            if (data['BTC']) {
+                btcValueElement.innerHTML = 'BTC Value: ' + data['BTC'];
+            } else {
+                btcValueElement.innerHTML = 'BTC Value: N/A';
+            }
+        });
+    </script>
+</body>
+</html>
