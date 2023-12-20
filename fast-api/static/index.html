@@ -1,0 +1,26 @@
+<!-- static/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Currency App</title>
+</head>
+<body>
+    <h1>Bitcoin Currency App</h1>
+    <p id="bitcoin-rate">Loading...</p>
+
+    <script>
+        const socket = new WebSocket("ws://localhost:8000/ws");
+
+        socket.onmessage = (event) => {
+            document.getElementById("bitcoin-rate").innerText = event.data;
+        };
+
+        socket.onclose = (event) => {
+            console.error("WebSocket closed:", event);
+        };
+    </script>
+</body>
+</html>
